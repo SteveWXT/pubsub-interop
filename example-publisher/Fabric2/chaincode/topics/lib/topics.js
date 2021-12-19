@@ -11,7 +11,7 @@ const { Contract } = require('fabric-contract-api');
 const axios = require('axios');
 
 //The following information should be updated 
-const brokerServer = "192.168.226.100"
+const brokerServer = "10.128.254.192"//实验室主机
 const brokerPort = "8880"
 const channelName = "mychannel"
 const chaincodeName = "broker"
@@ -35,6 +35,7 @@ class Topics extends Contract {
             await ctx.stub.putState(`${i}`, Buffer.from(JSON.stringify(topics[i])));
             console.info('Added <--> ', topics[i]);
         }
+        
         console.info('============= END : Initialize Ledger ===========');
     }
 

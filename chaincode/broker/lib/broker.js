@@ -21,8 +21,8 @@ class Broker extends Contract {
         const topics = [
             {
                 name: 'temp-topic',
-                publisher: 'Sara-pub',
-                subscribers: ['BLOCKCHAIN0', 'BLOCKCHAIN1'],
+                publisher: 'Fabric-pub',
+                subscribers: ['BLOCKCHAIN0'],
                 message: ''
             },
         ];
