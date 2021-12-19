@@ -22,7 +22,7 @@ class Broker extends Contract {
             {
                 name: 'temp-topic',
                 publisher: 'Fabric-pub',
-                subscribers: ['BLOCKCHAIN0'],
+                subscribers: ['BLOCKCHAIN0', 'BLOCKCHAIN1'],
                 message: ''
             },
         ];

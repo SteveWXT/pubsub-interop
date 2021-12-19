@@ -18,7 +18,7 @@ class Pubsub extends Contract {
             {
                 name: 'Fabric-Subscriber',
                 type: 'Fabric',
-                server: '10.112.197.151',
+                server: '127.0.0.1',
                 port: '8880',
                 info: {
                     channelName,
@@ -32,101 +32,101 @@ class Pubsub extends Contract {
                     org: 'Org1'
                 }
             },
-            // {
-            //     name: 'Besu-Subscriber',
-            //     type: 'Besu',
-            //     server: '127.0.0.1',
-            //     port: '8545',
-            //     info: {
-            //         privateKey: "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3",
-            //         address: "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
-            //         abi: [
-            //             {
-            //               "inputs": [],
-            //               "payable": false,
-            //               "stateMutability": "nonpayable",
-            //               "type": "constructor"
-            //             },
-            //             {
-            //               "constant": true,
-            //               "inputs": [
-            //                 {
-            //                   "internalType": "uint256",
-            //                   "name": "",
-            //                   "type": "uint256"
-            //                 }
-            //               ],
-            //               "name": "all_topics",
-            //               "outputs": [
-            //                 {
-            //                   "internalType": "bool",
-            //                   "name": "exists",
-            //                   "type": "bool"
-            //                 },
-            //                 {
-            //                   "internalType": "string",
-            //                   "name": "name",
-            //                   "type": "string"
-            //                 },
-            //                 {
-            //                   "internalType": "string",
-            //                   "name": "message",
-            //                   "type": "string"
-            //                 }
-            //               ],
-            //               "payable": false,
-            //               "stateMutability": "view",
-            //               "type": "function"
-            //             },
-            //             {
-            //               "constant": false,
-            //               "inputs": [
-            //                 {
-            //                   "internalType": "uint256",
-            //                   "name": "id",
-            //                   "type": "uint256"
-            //                 },
-            //                 {
-            //                   "internalType": "string",
-            //                   "name": "name",
-            //                   "type": "string"
-            //                 },
-            //                 {
-            //                   "internalType": "string",
-            //                   "name": "message",
-            //                   "type": "string"
-            //                 }
-            //               ],
-            //               "name": "newTopic",
-            //               "outputs": [],
-            //               "payable": false,
-            //               "stateMutability": "nonpayable",
-            //               "type": "function"
-            //             },
-            //             {
-            //               "constant": false,
-            //               "inputs": [
-            //                 {
-            //                   "internalType": "uint256",
-            //                   "name": "id",
-            //                   "type": "uint256"
-            //                 },
-            //                 {
-            //                   "internalType": "string",
-            //                   "name": "message",
-            //                   "type": "string"
-            //                 }
-            //               ],
-            //               "name": "updateTopic",
-            //               "outputs": [],
-            //               "payable": false,
-            //               "stateMutability": "nonpayable",
-            //               "type": "function"
-            //             }
-            //           ],
+            {
+                name: 'Besu-Subscriber',
+                type: 'Besu',
+                server: '127.0.0.1',
+                port: '8545',
+                info: {
+                    privateKey: "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3",
+                    address: "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
+                    abi: [
+                        {
+                          "inputs": [],
+                          "payable": false,
+                          "stateMutability": "nonpayable",
+                          "type": "constructor"
+                        },
+                        {
+                          "constant": true,
+                          "inputs": [
+                            {
+                              "internalType": "uint256",
+                              "name": "",
+                              "type": "uint256"
+                            }
+                          ],
+                          "name": "all_topics",
+                          "outputs": [
+                            {
+                              "internalType": "bool",
+                              "name": "exists",
+                              "type": "bool"
+                            },
+                            {
+                              "internalType": "string",
+                              "name": "name",
+                              "type": "string"
+                            },
+                            {
+                              "internalType": "string",
+                              "name": "message",
+                              "type": "string"
+                            }
+                          ],
+                          "payable": false,
+                          "stateMutability": "view",
+                          "type": "function"
+                        },
+                        {
+                          "constant": false,
+                          "inputs": [
+                            {
+                              "internalType": "uint256",
+                              "name": "id",
+                              "type": "uint256"
+                            },
+                            {
+                              "internalType": "string",
+                              "name": "name",
+                              "type": "string"
+                            },
+                            {
+                              "internalType": "string",
+                              "name": "message",
+                              "type": "string"
+                            }
+                          ],
+                          "name": "newTopic",
+                          "outputs": [],
+                          "payable": false,
+                          "stateMutability": "nonpayable",
+                          "type": "function"
+                        },
+                        {
+                          "constant": false,
+                          "inputs": [
+                            {
+                              "internalType": "uint256",
+                              "name": "id",
+                              "type": "uint256"
+                            },
+                            {
+                              "internalType": "string",
+                              "name": "message",
+                              "type": "string"
+                            }
+                          ],
+                          "name": "updateTopic",
+                          "outputs": [],
+                          "payable": false,
+                          "stateMutability": "nonpayable",
+                          "type": "function"
+                        }
+                      ],
 
-            //     }
-            // }
+                }
+            }
         ];
 
         for (let i = 0; i < blockchains.length; i++) {
