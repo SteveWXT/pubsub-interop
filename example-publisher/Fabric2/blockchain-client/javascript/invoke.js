@@ -41,7 +41,7 @@ async function main() {
         // createTopic transaction - requires 3 argument, ex: ('createTopic', '0', 'FirstTopic', 'Initial message!')
         // publishToTopic transaction - requires 2 args , ex: ('changeCarOwner', '0', 'New message!')
 
-        await contract.submitTransaction('createTopic', '0', 'FirstTopic', 'Initial message!');
+        await topicsContract.submitTransaction('createTopic', '0', 'FirstTopic', 'Initial message!');
         await topicsContract.submitTransaction('publishToTopic', '0', 'New message!');
         console.log('Transaction has been submitted');
 
