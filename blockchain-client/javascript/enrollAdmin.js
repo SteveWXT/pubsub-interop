@@ -5,11 +5,9 @@
 'use strict';
 
 const FabricCAServices = require('fabric-ca-client');
-// Using fabric-network version 1.4.8 to which is the latest supported by Caliper
-const {FileSystemWallet} = require('fabric-network');
+const { Wallets } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
-
 
 async function main() {
     try {
@@ -24,11 +22,11 @@ async function main() {
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
-        const wallet = new FileSystemWallet(walletPath)
+        const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the admin user.
-        const identity = await wallet.exists('admin');
+        const identity = await wallet.get('admin');
         if (identity) {
             console.log('An identity for the admin user "admin" already exists in the wallet');
             return;
@@ -37,12 +35,14 @@ async function main() {
         // Enroll the admin user, and import the new identity into the wallet.
         const enrollment = await ca.enroll({ enrollmentID: 'admin', enrollmentSecret: 'adminpw' });
         const x509Identity = {
-            certificate: enrollment.certificate,
-            privateKey: enrollment.key.toBytes(),
+            credentials: {
+                certificate: enrollment.certificate,
+                privateKey: enrollment.key.toBytes(),
+            },
             mspId: 'Org1MSP',
             type: 'X.509',
         };
-        await wallet.import('admin', x509Identity);
+        await wallet.put('admin', x509Identity);
         console.log('Successfully enrolled admin user "admin" and imported it into the wallet');
 
     } catch (error) {

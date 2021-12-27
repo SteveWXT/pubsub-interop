@@ -20,7 +20,7 @@ const address = AdoptionArtifact['networks']['2018']['address']
 var MyContract = new web3.eth.Contract(abi, address)
 MyContract.setProvider(web3Provider)
 
-const brokerServer = "192.168.226.100"
+const brokerServer = "10.128.254.192"
 const brokerPort = "8880"
 const brokerChannelName = "mychannel"
 const brokerChaincodeName = "broker"
@@ -108,10 +108,10 @@ const updateTopic = (id, message) => {
 
 const main = async () => {
     await getTopic(0)
-    console.log(await subscribeToTopic('BLOCKCHAIN3_3'))
-    await newTopic(133, 'test', "This is the initial message!")
-    await updateTopic(0, "This is the new meesage!")
-    await getTopic(133)
+    //console.log(await subscribeToTopic('BLOCKCHAIN3_3'))
+    //await newTopic(133, 'test', "This is the initial message!")
+    //await updateTopic(0, "This is the new meesage!")
+    //await getTopic(133)
 }
 
 main()

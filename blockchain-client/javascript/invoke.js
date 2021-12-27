@@ -5,7 +5,7 @@
 'use strict';
 
 // Using fabric-network version 1.4.8 to which is the latest supported by Caliper
-const { Gateway, FileSystemWallet } = require('fabric-network');
+const { Gateway, Wallet } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
@@ -17,11 +17,11 @@ async function main() {
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
-        const wallet = new FileSystemWallet(walletPath)
+        const wallet = Wallets.newFileSystemWallet(walletPath)
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.exists('appUser');
+        const identity = await wallet.get('appUser');
         if (!identity) {
             console.log('An identity for the user "appUser" does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');

@@ -5,7 +5,7 @@
 'use strict';
 
 // Using fabric-network version 1.4.8 to which is the latest supported by Caliper
-const {FileSystemWallet, Gateway} = require('fabric-network');
+const {Wallets, Gateway} = require('fabric-network');
 const path = require('path');
 const fs = require('fs');
 
@@ -18,11 +18,11 @@ async function main() {
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
-        const wallet = new FileSystemWallet(walletPath)
+        const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.exists('appUser');
+        const identity = await wallet.get('appUser');
         if (!identity) {
             console.log('An identity for the user "appUser" does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
@@ -44,7 +44,7 @@ async function main() {
         // queryTopic transaction - requires 1 argument, ex: ('queryTopic', 'BLOCKCHAIN0_0')
         // queryAllTopics transaction - requires no arguments, ex: ('queryAllTopics')
 
-        const brokerResult1 = await brokerContract.evaluateTransaction('queryTopic', 'BLOCKCHAIN0_0');
+        const brokerResult1 = await brokerContract.evaluateTransaction('queryTopic', '0');
         const brokerResult2 = await brokerContract.evaluateTransaction('queryAllTopics');
 
         console.log(`Transaction has been evaluated, result is: ${brokerResult1.toString()}`);

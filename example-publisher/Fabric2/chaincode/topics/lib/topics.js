@@ -104,7 +104,7 @@ class Topics extends Contract {
         const name_broker = publisher_id + '_' + topicNumber
 
         const updateUrl = `http://${brokerServer}:${brokerPort}${brokerInvokePath}`
-        console.log(await updateTopic(updateUrl, name_broker, newMessage))
+        console.log(await updateBrokerTopic(updateUrl, name_broker, newMessage))
         
         console.info('============= END : Publish to a Topic ===========');
     }
@@ -112,7 +112,7 @@ class Topics extends Contract {
 }
 
 // Invoke the broker's chaincode to update a topic.
-const createTopic = async (url, topic_id, name, message) => {
+const createBrokerTopic = async (url, topic_id, name, message) => {
     const publisher = publisher_id
     const subscribers = ''
     const headers = {

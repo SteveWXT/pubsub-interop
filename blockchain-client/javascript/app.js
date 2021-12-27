@@ -8,7 +8,7 @@ var cors = require('cors')
 const path = require('path')
 const fs = require('fs')
 
-const { Gateway, FileSystemWallet } = require('fabric-network')
+const { Gateway, Wallets, Wallet } = require('fabric-network')
 const FabricCAServices = require('fabric-ca-client')
 
 logger.level = 'debug'
@@ -29,7 +29,9 @@ const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizatio
 const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
 // Create a new file system based wallet for managing identities.
-const walletPath = path.join(process.cwd(), 'wallet');
+// const walletPath = path.join(process.cwd(), 'wallet');
+// const wallet = Wallets.newFileSystemWallet(walletPath)
+// console.log(`Wallet path: ${walletPath}`)
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// START SERVER /////////////////////////////////
@@ -75,26 +77,26 @@ app.post('/users', async function(req, res) {
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet')
-        const wallet = new FileSystemWallet(walletPath)
+        const wallet = await Wallets.newFileSystemWallet(walletPath)
         console.log(`Wallet path: ${walletPath}`)
 
         // Check to see if we've already enrolled the user.
-        const userIdentity = await wallet.exists('username');
+        const userIdentity = await wallet.get(username);
         if (userIdentity) {
             console.log(`An identity for the user ${username} already exists in the wallet`)
             return
         }
 
         // Check to see if we've already enrolled the admin user.
-        const adminIdentity = await wallet.exists('admin');
+        const adminIdentity = await wallet.get('admin');
         if (!adminIdentity) {
             console.log('An identity for the admin user "admin" does not exist in the wallet')
             return
         }
 
         // build a user object for authenticating with the CA
-        const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type)
-        const adminUser = await provider.getUserContext(adminIdentity, 'admin')
+        const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type);
+        const adminUser = await provider.getUserContext(adminIdentity, 'admin');
 
         // Register the user, enroll the user, and import the new identity into the wallet.
         const secret = await ca.register({
@@ -160,8 +162,13 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', async function(req, 
 	logger.debug(args);
 
 	try {
+
+        const walletPath = path.join(process.cwd(), 'wallet');
+        const wallet = await Wallets.newFileSystemWallet(walletPath)
+        console.log(`Wallet path: ${walletPath}`)
+
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.exists('appUser');
+        const identity = await wallet.get('appUser');
         if (!identity) {
             console.log('An identity for the user "appUser" does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
@@ -221,8 +228,12 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName', async function(req,
 	}
 
 	try {
+        const walletPath = path.join(process.cwd(), 'wallet');
+        const wallet = await Wallets.newFileSystemWallet(walletPath)
+        console.log(`Wallet path: ${walletPath}`)
+
         // Check to see if we've already enrolled the user.
-        const identity = await wallet.exists('appUser');
+        const identity = await wallet.get('appUser');
         if (!identity) {
             console.log('An identity for the user "appUser" does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
